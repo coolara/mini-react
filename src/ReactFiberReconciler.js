@@ -15,7 +15,7 @@ export function updateHostComponent(wip) {
 function reconcilerChildren(wip, children) {
     if (isStringOrNumber(children)) return
     const newChildren = isArray(children) ? children : [children]
-    let previousNewFiber = null
+    let previousNewFiber = null // 记录上一次的fiber
     for (let i = 0; i < newChildren.length; i++) {
         const newChild = newChildren[i];
         const newFiber = createFiber(newChild, wip)

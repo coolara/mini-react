@@ -36,7 +36,7 @@ function performUnitOfWork(){
 }
 
 function workLoop(idleCallback){
-    if(wip&& idleCallback.timeRemaining() > 0){
+    while(wip&& idleCallback.timeRemaining() > 0){
         performUnitOfWork()
     }
     if(!wip && wipRoot){
@@ -61,7 +61,7 @@ function commitWorker(wip){
     } 
 
     commitWorker(wip.child)
-    
+
     commitWorker(wip.sibling)
 }
 requestIdleCallback(workLoop)
