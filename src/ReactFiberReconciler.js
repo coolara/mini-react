@@ -11,6 +11,27 @@ export function updateHostComponent(wip) {
     reconcilerChildren(wip, wip.props.children)
 };
 
+export function updateFunctionComponent (wip) {
+  const {type, props} = wip
+  const children = type(props)
+  reconcilerChildren(wip, children)
+};
+
+export function updateClassComponent (wip) {
+    const {type, props} = wip
+    const instance = new type(props)
+    const children = instance.render()
+    reconcilerChildren(wip, children)
+  };
+  
+export function updateTextComponent(wip){
+    wip.stateNode = document.createTextNode(wip.props.children)
+}
+
+export function updateFragmentComponent(wip){
+    reconcilerChildren(wip, wip.props.children)
+}
+
 
 function reconcilerChildren(wip, children) {
     if (isStringOrNumber(children)) return
