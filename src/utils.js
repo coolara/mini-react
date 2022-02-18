@@ -26,13 +26,20 @@ export  function isUndefined(s){
 
 
 
-export function updateNode(node, nextVal){
+export function updateNode(node, preVal, nextVal){
+    Object.keys(preVal).forEach(k => {
+      if(k.slice(0, 2) === 'on'){
+        node.removeEventListener(k.toLocaleLowerCase())
+      }
+    })
     Object.keys(nextVal).forEach(k => {
         if(k==='children'){
             if(isStringOrNumber(nextVal[k])){
                 node.textContent= nextVal[k]+''
             }
-        }else{
+        }else if(k.slice(0,2) === 'on'){
+          node.addEventListener(k.toLocaleLowerCase(), nextVal[k])
+        } else{
             node[k] = nextVal[k]
         }
     })

@@ -5,7 +5,7 @@ export function updateHostComponent(wip) {
     if (!wip.stateNode) {
         wip.stateNode = document.createElement(wip.type)
         // 更新属性
-        updateNode(wip.stateNode, wip.props)
+        updateNode(wip.stateNode,{}, wip.props)
     };
     // 协调子
     reconcilerChildren(wip, wip.props.children)

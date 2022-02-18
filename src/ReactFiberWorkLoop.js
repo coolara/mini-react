@@ -1,5 +1,6 @@
 import { updateClassComponent, updateFragmentComponent, updateFunctionComponent, updateHostComponent, updateTextComponent } from "./ReactFiberReconciler";
 import { ClassComponent, Fragment, FunctionComponent, HostComponent, HostText } from "./ReactWorkTag";
+import { scheduleCallback } from "./scheduler";
 import { Placement } from "./utils"
 
 // work in progress 当前工作中的fiber
@@ -10,6 +11,7 @@ let wipRoot = null
 export function scheduleUpdateOnFiber(fiber) {
     wip = fiber;
     wipRoot = fiber
+    scheduleCallback(workLoop)
 }
 
 
@@ -50,8 +52,8 @@ function performUnitOfWork() {
     wip = null
 }
 
-function workLoop(idleCallback) {
-    while (wip && idleCallback.timeRemaining() > 0) {
+function workLoop() {
+    while (wip ) {
         performUnitOfWork()
     }
     if (!wip && wipRoot) {
@@ -89,4 +91,3 @@ function getParentNode(wip) {
         parent = parent.return
     }
 }
-requestIdleCallback(workLoop)
