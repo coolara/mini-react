@@ -1,7 +1,7 @@
 import { updateClassComponent, updateFragmentComponent, updateFunctionComponent, updateHostComponent, updateTextComponent } from "./ReactFiberReconciler";
 import { ClassComponent, Fragment, FunctionComponent, HostComponent, HostText } from "./ReactWorkTag";
 import { scheduleCallback } from "./scheduler";
-import { Placement } from "./utils"
+import { Placement, Update, updateNode } from "./utils"
 
 // work in progress 当前工作中的fiber
 let wip = null
@@ -75,6 +75,10 @@ function commitWorker(wip) {
     const parentNode = getParentNode(wip.return)
     if (flags & Placement && stateNode) {
         parentNode.appendChild(stateNode)
+    }
+
+    if(flags & Update && stateNode){
+      updateNode(stateNode, wip.alternate.props, wip.props)
     }
 
     commitWorker(wip.child)

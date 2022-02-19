@@ -26,10 +26,11 @@ export  function isUndefined(s){
 
 
 
-export function updateNode(node, preVal, nextVal){
+export function updateNode(node, preVal,  nextVal){
     Object.keys(preVal).forEach(k => {
       if(k.slice(0, 2) === 'on'){
-        node.removeEventListener(k.toLocaleLowerCase())
+        const eventName = k.slice(2).toLowerCase()
+        node.removeEventListener(eventName, preVal[k])
       }
     })
     Object.keys(nextVal).forEach(k => {
@@ -38,7 +39,8 @@ export function updateNode(node, preVal, nextVal){
                 node.textContent= nextVal[k]+''
             }
         }else if(k.slice(0,2) === 'on'){
-          node.addEventListener(k.toLocaleLowerCase(), nextVal[k])
+          const eventName = k.slice(2).toLowerCase()
+          node.addEventListener(eventName, nextVal[k])
         } else{
             node[k] = nextVal[k]
         }

@@ -17,19 +17,21 @@ export function createFiber(vnode, returnFiber) {
     flags: Placement,
 
     // 当前层级下标
-    index: null
+    index: null,
+    // 老fiber
+    alternate: null
   }
 
   // 判断tag
-  const {type} = fiber
+  const { type } = fiber
   if (isStr(type)) {
     fiber.tag = HostComponent
   } else if (isFunction(type)) {
     fiber.tag = type.prototype.isReactComponent ? ClassComponent :
       FunctionComponent
-  } else if(isUndefined(type)){
+  } else if (isUndefined(type)) {
     fiber.tag = HostText
-    fiber.props = {children: vnode}
+    fiber.props = { children: vnode }
   } else {
     fiber.tag = Fragment
   }

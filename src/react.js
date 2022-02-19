@@ -1,3 +1,3 @@
 import {Component} from './ClassComponent.js'
-import {useReducer} from './hooks'
-export { Component, useReducer}
+import { useReducer, useState} from './hooks'
+export { Component, useReducer, useState}
