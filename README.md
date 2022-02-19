@@ -7,3 +7,5 @@
 
 - [x]   branch 1.0  构建fiber 渲染原生节点
 - [x]  branch 2.0 渲染函数组件 类组件 文本节点 fragment节点
+- [x]  3.0 任务调度
+- [x]  4.0 hooks
